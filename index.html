@@ -1,0 +1,109 @@
+
+<!-- ------------------------------ Task-1 (SQL) ----------------------- -->
+
+            <!-- DEPT_NAME  AVG_MONTHLY_SALARY (USD) -->
+
+    select dept.NAME as "DEPT_NAME",avg(sal.AMT) as "AVG_MONTHLY_SALARY (USD)" from employees as emp join departments as dept
+    on emp.DEPT_ID=dept.id
+    join salaries as sal on sal.EMP_ID=emp.id
+    group by dept.NAME
+    order by avg(sal.AMT) desc limit 3;
+
+
+    <!-- Explain above code 
+
+        line-6 : give department name and average salary  (join department table with employees table)
+        line-7 : match employees table (dept-id) with department table (id)
+        line-8 : join salaries table with employees table 
+        line-9 : provide data group-wise on department-name
+        line-10: provide avg salary of top-3 candidates
+    -->
+
+    <!-- Final-output 
+        Sales      7045.16129
+        Ops        6420.00000
+        Finance    6360.31746
+    -->
+
+
+<!-- ------------------------------ Task-2 (Scripting) ----------------------- -->
+
+
+import pandas as pd
+
+departments=pd.read_csv("C:/Users/Shivam/Downloads/ASDE Assignment - Departments.csv")
+
+employees=pd.read_csv("C:/Users/Shivam/Downloads/ASDE Assignment - Employees.csv")
+
+salaries=pd.read_csv("C:/Users/Shivam/Downloads/ASDE Assignment - Salaries.csv")
+
+df=pd.merge(departments,employees, left_on='ID',right_on='DEPT_ID')
+
+data= pd.merge(df,salaries,left_on="ID_y",right_on='EMP_ID')
+
+x=data.groupby(['NAME_x'])['AMT'].mean()
+
+x.sort_values(ascending=False).head(3)
+
+
+    <!-- Explain above code 
+
+        line-34 : read department file data from system
+        line-36 : read employees file data from system
+        line-38 : read salaries file data from system 
+        line-40 : match employees table (dept-id) with department table (id)
+        line-42 : join salaries table with employees table
+        line-44 : provide data group-wise on department-name with avg salary
+        line-46 : sort top-3 candidates desc-wise.
+    -->
+
+    <!-- Final-output 
+        Sales      7045.16129
+        Ops        6420.00000
+        Finance    6360.31746
+    -->
+
+
+<!-- ------------------------------ Task-3 (Debugging) ----------------------- -->
+
+        <!-- 1. If n is less than 10: Calculate its Square
+           Example: 4 => 16
+        2. If n is between 10 and 20: Calculate the factorial of (n-10)
+            Example: 15 => 120
+        3. If n is greater than 20: Calculate the sum of all integers between 1 and (n-20)
+            Example: 25 => 15 -->
+
+        <!-- Script (Python) -->    
+
+        def compute(n):
+            if n < 10:
+                out = n ** 2
+            elif n < 20:
+                out = 1
+                for i in range(1, n-9):         <!-- change value '10' with '9'  -->
+                    out *= i
+            else:
+                lim = n - 19                    <!-- change value '20' with '19' -->
+                out = lim * lim
+                out = out - lim
+                out = out / 2 
+            print(out)
+
+
+        n = int(input("Enter an integer: "))
+        compute(n)
+
+         <!-- Explain above code 
+
+            line-77 : change 10 with 9 because in for loop it exclude the last value.
+
+              ex- if n="15", then for loop range run (1-(15-10)) it will exclude mutiplication with 5.
+
+            line-80 :  change 20 with 19 because in for loop it exclude the last value.
+
+              ex- if n="25", .
+         -->
+
+
+
+    <!-- Code written by "Shivam Goel" -->
